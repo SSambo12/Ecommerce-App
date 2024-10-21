@@ -1,3 +1,3 @@
 # Ecommerce-App
 
-Hii
+Ecommerce App using rails
