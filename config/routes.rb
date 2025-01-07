@@ -1,4 +1,25 @@
 Rails.application.routes.draw do
+  get "products/index"
+  get "home", to: "home#index", as: :home
+  resource :registrations, only: %i[create new]
+  resource :session
+  resources :passwords, param: :token
+  namespace :admin do
+    resources :products do
+      resources :stocks
+    end
+    resources :categories
+    resources :orders
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :orders
+      resources :products
+      resources :order_items
+    end
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,4 +32,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  root "protected#index"
+  get "admin" => "admin#index"
+
+  resources :products, only: [ :show ]
+
+  Rails.application.routes.draw do
+    get "admin/index", to: "admin#index", as: "admin_index"
+  end
 end

@@ -1,0 +1,35 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl mb-4">Product Details</h1>
+  </div>
+
+  <div id="admin_order" class="min-w-full">
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-gray-700 font-bold mb-1">Product ID: <%= @admin_product.id %></h3>
+      <p class="text-xl mb-1">Name: <%= @admin_product.category.name%> - <%= @admin_product.name%></p>
+      <p class="text-xl mb-1">Description: <%= @admin_product.description %></p>
+      <p class="text-xl mb-1">Status: <%=  @admin_product.stock == true ? "Available" : "Out of Stock"  %></p>
+      <p class="text-xl mb-1">Price: <%= @admin_product.price %> $</p>
+      <hr class="my-4 mt-2 mb-2">
+      <h3 class="text-gray-700 font-bold mb-1">In Stock</h3>
+      <% @admin_product.stocks.each do |stock| %>
+      <hr class="my-4 mt-2 mb-2">
+      <p class="text-xl mb-1">Attribute: <%= stock.name %></p>
+      <p class="text-xl mb-1">Value: <%= stock.value %></p>
+      <% end %>
+    </div>
+
+    <div>
+      <%= link_to "Edit this product", edit_admin_product_path(@admin_product), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to "Edit stock", admin_product_stocks_path(@admin_product), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to "Back to products", admin_products_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <div class="inline-block ml-2">
+        <%= button_to "Destroy this product", @product, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      </div>
+    </div>
+  </div>
+</div>
