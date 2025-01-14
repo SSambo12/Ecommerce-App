@@ -1,0 +1,13 @@
+<%# <%= turbo_stream.append "categories", partial: "category", locals: { category: @admin_category } %>
+<%# <%= turbo_stream.replace "new_category", partial: "form", locals: { admin_category: Category.new } %>
+
+<%= turbo_stream.append "admin_category" do %>
+    <div class="bg-white p-6 rounded-lg shadow mt-2">
+        <p class="text-xl mb-1">Name: <%= category.name %></p>
+        <p class="text-xl mb-1">Description: <%= category.description %></p>
+    </div>
+    <div>
+    <%= link_to "Show this category", admin_category_path(category), class: "ml-2 py-3 px-5 inline-block font-medium" %>
+    <%= link_to "Edit this category", edit_admin_category_path(category), class: "ml-2 py-3 px-5 inline-block font-medium" %>
+    </div>
+<%= end %>
