@@ -1,0 +1,41 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl mb-4">Order Details</h1>
+  </div>
+
+  <div id="admin_order" class="min-w-full"> 
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-gray-700 font-bold mb-1">Order ID: <%= @order.id %></h3>
+      <p class="text-xl mb-1">Ordered At: <%= @order.created_at%></p>
+      <p class="text-xl mb-1">Customer: <%= @order.user.email_address %></p>
+      <p class="text-xl mb-1">Phone Number: <%= @order.phone_number %></p>
+      <hr class="my-4 mt-2 mb-2">
+      <p class="text-xl mb-1">Product: <%= @order.product.category.name %> - <%= @order.product.name %></p>
+      <% @order_items.each do |item| %>
+      <p class="text-xl mb-1"><%= item.stock.name %>: <%= item.stock.value %></p>
+      <% end %>
+      <p class="text-xl mb-1">Price: <%= @order.product.price %> $</p>
+      <p class="text-xl mb-1">Amount: <%= @order.amount %></p>
+      <p class="text-xl mb-1">Total Price: <%= @order.product.price * @order.amount %> $</p>
+      <hr class="my-4 mt-2 mb-2">
+      <p class="text-xl mb-1">Payment: <%= @order.payment ? "Paid" : "Unpaid" %></p>
+      <p class="text-xl mb-1">
+        Status: <%= case @order.status 
+                    when 0 then "Ordered"
+                    when 1 then "On the way"
+                    when 2 then "Delivered"
+                    when 3 then "Accepted"
+                    else "Unknown Status"
+                    end %>
+      </p>
+    </div>
+
+    <div>
+      <%= link_to "Back to orders", admin_orders_path, class: "mt-2 ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    </div>
+  </div>
+</div>
